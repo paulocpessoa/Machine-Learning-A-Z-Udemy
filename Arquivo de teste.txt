@@ -11,7 +11,7 @@ Em um arquivo delimitado por vírgula, podemos usar read_csv para lê-lo.
 Também é possível usar read_table, nesse caso devemos declarar um separador no parametro sep.
 
 
-Por default, o pandas assume a aaaprimeira linha como header. Caso o arquivo não possua header, devemos declarar header=none.
+Por defaults, o pandas assume a aaaprimeira linha como header. Caso o arquivo não possua header, devemos declarar header=none.
 
 O pandas atribuiu automaticamente um nome para o header, para atribuir manualmente , usa-se o parametro names.
 
