@@ -11,16 +11,16 @@ Em um arquivo delimitado por virgula, podemos usar read_csv para lê-lo.
 Também é possível usar read_table, nesse caso devemos declarar um separador no parametro sep.
 
 
-Por default, o pandas assume a primeira linha como header. Caso o arquivo não possua header, devemos declarar header=none.
+Por default, o pandas assume a aaaprimeira linha como header. Caso o arquivo não possua header, devemos declarar header=none.
 
-
+tesasdasdsa
 
 O pandas atribuiu automaticamente um nome para o header, para atribuir manualmente , usa-se o parametro names.
 
 
 Suponha por exemplo que a coluna message seja o index. Para atribuir devemos usar o parametro index_col.
 
-
+dasdasdas
 
 Caso haja a necessidade de formar um index hierarquico, basta passar uma lista de indices no parametro index_col
 
