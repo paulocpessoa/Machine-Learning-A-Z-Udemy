@@ -1,0 +1,88 @@
+Uma das razoes do python ter se tornado uma linguagem tão popular, foi a simplicidade de manipular dados. read_csv e read_table são os métodos mais usados:A opções dessas funções caem nas seguintes características:
+	* Indexação: uma ou mais colunas podem ser usadas como index. O nome das colunas podem vir do arquivo ou passadas manualmente.
+	* Inferência de dados e Conversão: 
+	* Datetime: Criação de colunas do tipo datetime a partir de uma ou mais colunas do arquivo origem
+	* Problema em dados sujos: Extração das informações sem sujeiras do arquivo
+
+
+Em um arquivo delimitado por virgula, podemos usar read_csv para lê-lo.
+
+
+Também é possível usar read_table, nesse caso devemos declarar um separador no parametro sep.
+
+
+Por default, o pandas assume a primeira linha como header. Caso o arquivo não possua header, devemos declarar header=none.
+
+
+
+O pandas atribuiu automaticamente um nome para o header, para atribuir manualmente , usa-se o parametro names.
+
+
+Suponha por exemplo que a coluna message seja o index. Para atribuir devemos usar o parametro index_col.
+
+
+
+Caso haja a necessidade de formar um index hierarquico, basta passar uma lista de indices no parametro index_col
+
+
+
+No parametro sep, que define o delimitador, é possível atribuir uma expressão regular:
+
+
+No caso acima, existiam 4 colunas mas só 3 possuiam header. Automaticamente o pandas assumiu que a mesma é o index
+
+O tratamento de missing data, é muito importante. Missing data é normalmente string não presente "" ou marcada por um  valor sentinel.
+Por padrão, o pandas usa um conjunto de valores comumente usados como sentinel. NA, -1.#IND E NULL
+
+
+Outros valores sentinels podem ser declarados no parametro na_values.
+
+
+
+Para pular linhas skiprows
+
+
+
+Lendo arquivos textos em pedaços
+
+Quando existe a necessidade de ler arquivos grandes, você pode querer ler um pequeno pedaço do arquivo para ter um insight ou iterar por pequenos pedaços até lê-lo completamente.
+
+Se você quer ler apenas um pedaço do arquivo, usa-se o parametro nrows.
+
+
+Se você quer ler o arquivo inteiro, só que um pedaço de cada vez, usa-se chucksize
+
+
+o objeto do tipo TextParser permite que você itere sobre as partes do arquivo de acordo com o tamanho do chuncksize
+
+Por exemplo, podemos iterar sobre o arquivo, agregando a acontagem dos valores pela coluna 'key'
+
+
+
+Escrevendo dados em um formato texto
+
+Para escrever o arquivo de saída, o principal método usado é o to_csv. 
+
+
+Por padrão, os valores nulos aparecem como string vazias, para usar outro padrão, usa-se o parametro na_rep
+
+Por padrão, tanto o index quanto as colunas são exportados no arquivo. Para mudar o comportamento usa-se os parametros index=False, header=False
+
+
+
+Você pode exportar apenas algumas colunas usando o parametro cols:
+
+
+
+
+
+Lendo JSON
+
+Os dados do JSON são muito parecidos com um código python de dicionário de listas, com exceção de alguns detalhes como permitir uso de  virgula no final de uma lista. Para converter JSON em um formato python, se usa a biblioteca json
+
+Para ler se usa o método loads
+
+Para reescrever em JSON, usa-se dumps
+
+
+
