@@ -13,8 +13,6 @@ Também é possível usar read_table, nesse caso devemos declarar um separador n
 
 Por default, o pandas assume a aaaprimeira linha como header. Caso o arquivo não possua header, devemos declarar header=none.
 
-tesasdasdsa
-
 O pandas atribuiu automaticamente um nome para o header, para atribuir manualmente , usa-se o parametro names.
 
 
