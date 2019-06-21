@@ -5,7 +5,7 @@ Uma das razoes do python ter se tornado uma linguagem tão popular, foi a simpli
 	* Problema em dados sujos: Extração das informações sem sujeiras do arquivo
 
 
-Em um arquivo delimitado por virgula, podemos usar read_csv para lê-lo.
+Em um arquivo delimitado por virgulas, podemos usar read_csv para lê-lo.
 
 
 Também é possível usar read_table, nesse caso devemos declarar um separador no parametro sep.
