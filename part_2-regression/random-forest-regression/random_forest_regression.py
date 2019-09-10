@@ -12,11 +12,11 @@ y = dataset.iloc[:, 2].values
 
 # Fitting Regression to the dataset
 from sklearn.ensemble import RandomForestRegressor
-regressor = RandomForestRegressor(n_estimators=300, random_state=0)
+regressor = RandomForestRegressor(n_estimators=10, random_state=0)
 regressor.fit(X, y)
 
 # Predicting a new result with Polynomial Regression
-y_pred = regressor.predict(6.5)
+y_pred = regressor.predict(np.array(6.5).reshape(-1,1))
 
 # Visualising the Polynomial Regression results (for higher resolution and smoother curve)
 X_grid = np.arange(min(X), max(X), 0.01)
