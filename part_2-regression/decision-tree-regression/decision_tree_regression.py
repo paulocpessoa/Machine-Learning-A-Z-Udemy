@@ -16,7 +16,7 @@ regressor = DecisionTreeRegressor(random_state=0)
 regressor.fit(X, y)
 
 # Predicting a new result with Decision Tree Regression
-y_pred = regressor.predict(6.5)
+y_pred = regressor.predict(np.array(6.5).reshape(-1,1))
 
 # Visualising the Polynomial Regression results (for higher resolution and smoother curve)
 X_grid = np.arange(min(X), max(X), 0.1)
