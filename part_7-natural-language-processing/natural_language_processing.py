@@ -5,14 +5,17 @@ from warnings import simplefilter
 
 import numpy as np
 import pandas as pd
+from collections import OrderedDict
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics import confusion_matrix
+from sklearn.preprocessing import StandardScaler
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 import sklearn
+from xgboost import XGBClassifier
 from sklearn.ensemble import RandomForestClassifier
 
 # ignore all future warnings
@@ -50,15 +53,15 @@ def model_performance(model, X_test):
 	fn = cm[1, 0]
 	tp = cm[1, 1]
 	fp = cm[0, 1]
-	accuracy = (TP + TN) / (TP + TN + FP + FN)
-	precision = TP / (TP + FP)
-	recall = TP / (TP + FN)
+	accuracy = (tp + tn) / (tp + tn + fp + fn)
+	precision = tp / (tp + fp)
+	recall = tp / (tp + fn)
 	f1_score = 2 * precision * recall / (precision + recall)
 	print(f'Accuracy: {accuracy}')
 	print(f'Precision: {precision}')
 	print(f'Recall: {recall}')
 	print(f'F1_score: {f1_score}')
-	print(str(model))
+	return [accuracy, precision, recall, f1_score]
 
 
 # Importing the dataset
@@ -72,12 +75,11 @@ y = dataset.iloc[:, 1].values
 from sklearn.model_selection import train_test_split
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=0)
-
+sc_X = StandardScaler()
+X_train = sc_X.fit_transform(X_train)
+X_test = sc_X.transform(X_test)
 # Fitting classifier to the Training set
 from sklearn.naive_bayes import GaussianNB
-
-classifier.fit(X_train, y_train)
-model_performance(classifier, X_test)
 
 # define models
 naive_bayes = GaussianNB()
@@ -87,15 +89,16 @@ kernel = SVC(kernel='rbf', random_state=0)
 LogisticRegression = sklearn.linear_model.LogisticRegression(random_state=0)
 RandomForest = RandomForestClassifier(n_estimators=10, criterion='entropy', random_state=0)
 SVC = sklearn.svm.SVC(kernel='linear', random_state=0)
-models = [naive_bayes, tree, KNeighbors, kernel, LogisticRegression, RandomForest, SVC]
+XGBC = XGBClassifier(n_jobs=-1, max_depth=15, scale_pos_weight=0.8)
+models = [naive_bayes, tree, KNeighbors, kernel, LogisticRegression, RandomForest, SVC, XGBC]
+models_names = ['naive_bayes', 'tree', 'KNeighbors', 'kernel', 'LogisticRegression', 'RandomForest', 'SVC', 'XGBC']
+models_dic = OrderedDict(zip(models_names, models))
 
 # loop through list of models
-for model in models:
-	print(model)
-	from sklearn.preprocessing import StandardScaler
-
-	sc_X = StandardScaler()
-	X_train = sc_X.fit_transform(X_train)
-	X_test = sc_X.transform(X_test)
+dic = {}
+for model_name, model in models_dic.items():
+	print(model_name)
 	model.fit(X_train, y_train)
-	model_performance(model, X_test)
+	dic[model_name] = model_performance(model, X_test)
+
+df = pd.DataFrame(dic, index=['accuracy', 'precision', 'recall', 'f1_score']).transpose()
