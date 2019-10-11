@@ -1,18 +1,19 @@
 # PCA
-
+import sys,os
+sys.path.append(os.path.realpath('..'))
 # Importing the libraries
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-
+from pathlib import Path
 # Importing the dataset
-dataset = pd.read_csv('../../data_files/Wine.csv')
+dataset = pd.read_csv('C:\git\Machine-Learning-A-Z-Udemy\data_files\Wine.csv')
 X = dataset.iloc[:, :13].values
 y = dataset.iloc[:, 13].values
 
 # Splitting the dataset into the Training set and Test set
 from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=0)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
 
 # Feature Scaling
 from sklearn.preprocessing import StandardScaler
@@ -26,6 +27,7 @@ pca = PCA(n_components=2)
 X_train = pca.fit_transform(X_train)
 X_test = pca.transform(X_test)
 explained_variance = pca.explained_variance_ratio_
+
 
 # Fitting Logistic Regression to the training set
 from sklearn.linear_model import LogisticRegression

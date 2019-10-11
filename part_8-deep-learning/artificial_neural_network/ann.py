@@ -1,6 +1,18 @@
-# Importing the libraries
-import numpy as np
-import matplotlib.pyplot as plt
+import tensorflow as tf
+config = tf.ConfigProto()
+sess = tf.Session(config=config)
+
+import tensorflow as tf
+import keras.backend.tensorflow_backend as ktf
+
+
+def get_session(gpu_fraction=0.9):
+    gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=gpu_fraction,
+                                allow_growth=True)
+    return tf.Session(config=tf.ConfigProto(gpu_options=gpu_options))
+
+
+ktf.set_session(get_session())
 import pandas as pd
 
 # Importing the dataset
@@ -71,8 +83,8 @@ import time
 start = time.time()
 # Fitting the ANN to the training set
 classifier.fit(X_train, y_train,
-			   batch_size=10,  # Número de observações antes que se atualize os weights
-			   nb_epoch=10)  # Quando todo training set passar pelo ANN, completa 1 epoch
+			   batch_size=100,  # Número de observações antes que se atualize os weights
+			   epochs=50)
 print (time.time()-start)
 # Predicting the Test set results
 y_pred = classifier.predict(X_test)
@@ -83,7 +95,3 @@ from sklearn.metrics import confusion_matrix
 
 cm = confusion_matrix(y_test, y_pred)
 
-
-
-from tensorflow.python.client import device_lib
-print(device_lib.list_local_devices())
