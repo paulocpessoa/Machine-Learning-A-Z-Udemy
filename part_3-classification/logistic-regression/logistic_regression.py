@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 # Importing the dataset
-dataset = pd.read_csv('../../data_files/Social_Network_Ads.csv')
+dataset = pd.read_csv('C:\\git\\Machine-Learning-A-Z-Udemy/data_files/Social_Network_Ads.csv')
 X = dataset.iloc[:, [2, 3]].values
 y = dataset.iloc[:, 4].values
 
@@ -29,6 +29,9 @@ y_pred = classifier.predict(X_test)
 # Making the confusion Matrix
 from sklearn.metrics import confusion_matrix
 cm = confusion_matrix(y_test, y_pred)
+
+plt.scatter()
+
 
 # Visualizing the Training set results
 from matplotlib.colors import ListedColormap
